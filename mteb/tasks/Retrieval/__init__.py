@@ -38,3 +38,4 @@ from .SCIDOCSPLRetrieval import *
 from .SciFactPLRetrieval import *
 from .TRECCOVIDPLRetrieval import *
 from .WikiCLIRRetrieval import *
+from .GerDaLIRRetrieval import *
