@@ -38,3 +38,4 @@ from .SciFactRetrieval import *
 from .Touche2020Retrieval import *
 from .TRECCOVIDPLRetrieval import *
 from .TRECCOVIDRetrieval import *
+from .WikiCLIRRetrieval import *
