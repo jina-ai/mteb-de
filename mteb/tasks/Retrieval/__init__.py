@@ -39,3 +39,4 @@ from .SciFactPLRetrieval import *
 from .TRECCOVIDPLRetrieval import *
 from .WikiCLIRRetrieval import *
 from .GerDaLIRRetrieval import *
+from .GermanDPRRetrieval import *
