@@ -40,3 +40,5 @@ from .TRECCOVIDPLRetrieval import *
 from .WikiCLIRRetrieval import *
 from .GerDaLIRRetrieval import *
 from .GermanDPRRetrieval import *
+from .XMarketRetrieval import *
+
