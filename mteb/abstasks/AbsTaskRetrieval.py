@@ -52,7 +52,7 @@ class AbsTaskRetrieval(AbsTask):
         corpus, queries, relevant_docs = self.corpus[split], self.queries[split], self.relevant_docs[split]
         model = model if self.is_dres_compatible(model) else DRESModel(model)
 
-        if os.getenv("RANK", None) is None:
+        if os.getenv("RANK", None) is None or os.getenv("MTEB_SINGLE_GPU", "false").lower() == "true":
             # Non-distributed
             from beir.retrieval.search.dense import DenseRetrievalExactSearch as DRES
             model = DRES(
