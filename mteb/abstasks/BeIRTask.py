@@ -23,7 +23,7 @@ class BeIRTask(AbsTask):
         USE_HF_DATASETS = False
 
         # TODO @nouamane: move non-distributed to `HFDataLoader`
-        if os.getenv("RANK", None) is not None:
+        if os.getenv("RANK", None) is not None and os.getenv("MTEB_SINGLE_GPU", "false").lower() == "false":
             if self.description["beir_name"].startswith("cqadupstack"):
                 raise ImportError("CQADupstack is incompatible with BEIR's HFDataLoader in a distributed setting")
             from beir.datasets.data_loader_hf import HFDataLoader 
