@@ -35,6 +35,7 @@ class GermanDPR(AbsTaskRetrieval):
                 id_value = existing_docs[formatted_content]
             else:
                 id_value = f"{id_prefix}{i}"
+                existing_docs[formatted_content] = id_value
             result[id_value] = {"title": title, "text": formatted_content}
         return result
 
