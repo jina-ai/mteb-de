@@ -1,4 +1,5 @@
 from ...abstasks.AbsTaskRetrieval import AbsTaskRetrieval
+from ...abstasks.BeIRTask import BeIRTask
 
 import datasets
 
@@ -23,11 +24,17 @@ class GermanDPR(AbsTaskRetrieval):
             "revision": "5129d02422a66be600ac89cd3e8531b4f97d347d",
         }
 
-    def _format_documents(self, docs, id_prefix=""):
+    @staticmethod
+    def _format_documents(docs, id_prefix="", existing_docs=None):
+        if existing_docs is None:
+            existing_docs = dict()
         result = {}
-        for i, (title, content) in enumerate(zip(docs["title"], docs["text"])):
-            id_value = f"{id_prefix}{i}"
-            formatted_content = content.split("===")[-1].replace("\n", " ").lstrip()
+        for i, (title, content) in enumerate(zip(docs['title'], docs['text'])):
+            formatted_content = content.split('==\n')[-1].replace('\n', ' ').lstrip()
+            if formatted_content in existing_docs:
+                id_value = existing_docs[formatted_content]
+            else:
+                id_value = f"{id_prefix}{i}"
             result[id_value] = {"title": title, "text": formatted_content}
         return result
 
@@ -41,11 +48,15 @@ class GermanDPR(AbsTaskRetrieval):
         corpus = dict()
         queries = dict()
         relevant_docs = dict()
+        all_pos_docs = dict()
+        all_neg_docs = dict()
         for i, row in enumerate(data):
-            q_id = f"q_{i}"
-            queries[q_id] = row["question"]
-            pos_docs = self._format_documents(row["positive_ctxs"], id_prefix=f"pos_{i}_")
-            neg_docs = self._format_documents(row["hard_negative_ctxs"], id_prefix=f"neg_{i}_")
+            q_id = f'q_{i}'
+            queries[q_id] = row['question']
+            pos_docs = self._format_documents(row['positive_ctxs'], id_prefix=f"pos_{i}_", existing_docs=all_pos_docs)
+            neg_docs = self._format_documents(
+                row['hard_negative_ctxs'], id_prefix=f"neg_{i}_", existing_docs=all_neg_docs
+            )
             corpus.update(pos_docs)
             corpus.update(neg_docs)
             relevant_docs[q_id] = {k: 1 for k in pos_docs}
