@@ -49,16 +49,13 @@ class GermanDPR(AbsTaskRetrieval):
         corpus = dict()
         queries = dict()
         relevant_docs = dict()
-        all_pos_docs = dict()
-        all_neg_docs = dict()
+        all_docs = dict()
         for i, row in enumerate(data):
             q_id = f'q_{i}'
             queries[q_id] = row['question']
-            pos_docs = self._format_documents(row['positive_ctxs'], id_prefix=f"pos_{i}_", existing_docs=all_pos_docs)
-            neg_docs = self._format_documents(
-                row['hard_negative_ctxs'], id_prefix=f"neg_{i}_", existing_docs=all_neg_docs
-            )
+            pos_docs = self._format_documents(row['positive_ctxs'], id_prefix=f"doc_{i}_", existing_docs=all_docs)
             corpus.update(pos_docs)
+            neg_docs = self._format_documents(row['hard_negative_ctxs'], id_prefix=f"doc_{i}_", existing_docs=all_docs)
             corpus.update(neg_docs)
             relevant_docs[q_id] = {k: 1 for k in pos_docs}
         self.queries = {self._EVAL_SPLIT: queries}
