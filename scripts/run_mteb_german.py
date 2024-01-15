@@ -51,8 +51,8 @@ def evaluate(
 if __name__ == '__main__':
     from sentence_transformers import SentenceTransformer
 
-    TASK_LIST = ["MIRACL", "GermanDPR", "PawsX", "GermanSTSBenchmark", "XMarket", "WikiCLIR", "GerDaLIR"]
-
-    model_name = 'multilingual-e5-base'
-    model = SentenceTransformer(f'intfloat/{model_name}', device='cuda')
-    evaluate(model, model_name, TASK_LIST, ['en', 'de', 'en-de', 'de-en'])
+    TASK_LIST = ["MIRACL", "GermanDPR", "PawsX", "GermanSTSBenchmark", "XMarket", "GerDaLIR"]
+    MODELS = ['intfloat/multilingual-e5-base', 'intfloat/multilingual-e5-large', 'T-Systems-onsite/cross-en-de-roberta-sentence-transformer', 'sentence-transformers/distiluse-base-multilingual-cased-v2']
+    for model_name in MODELS:
+        model = SentenceTransformer(model_name, device='cuda')
+        evaluate(model, model_name.replace('/', '-'), TASK_LIST, ['en', 'de', 'en-de', 'de-en'])
