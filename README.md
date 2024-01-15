@@ -39,7 +39,7 @@ Namely:
 
 | Name               | Type               | Description                                                                                                                               |
 |--------------------|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| MIRACL             | Reranking          | Multilingual retrieval dataset that focuses on search across 18 different languages. This task focuses on German                          |
+| MIRACL             | Reranking          | Multilingual retrieval dataset that focuses on search across 18 different languages.                           |
 | GermanDPR          | Retrieval          | GermanDPR is a German Question Answering dataset for open-domain QA. It associates questions with a textual context containing the answer |
 | PawsX              | PairClassification | Human-translated PAWS pairs (paraphrase identification)                                                                                   |
 | GermanSTSBenchmark | STS                | Machine-translation of STSBenchmark                                                                                                       |
